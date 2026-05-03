@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Georgia', serif;
+      background: #FAFAF7;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .form-card {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 36px 40px;
+      max-width: 480px;
+      width: 100%;
+      box-shadow: 0 4px 24px rgba(66, 45, 140, 0.10);
+      border-top: 5px solid #422D8C;
+    }
+
+    .form-headline {
+      font-size: 1.35rem;
+      font-weight: bold;
+      color: #422D8C;
+      margin-bottom: 6px;
+      text-align: center;
+    }
+
+    .form-sub {
+      font-size: 0.9rem;
+      color: #555;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    label.field-label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 5px;
+      margin-top: 16px;
+    }
+
+    input[type="text"],
+    input[type="email"] {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1.5px solid #ddd;
+      border-radius: 7px;
+      font-size: 0.95rem;
+      color: #333;
+      background: #FAFAF7;
+      transition: border-color 0.2s;
+      outline: none;
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus {
+      border-color: #422D8C;
+    }
+
+    .radio-group {
+      margin-top: 18px;
+    }
+
+    .radio-group legend {
+      font-size: 0.85rem;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    .radio-option {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border: 1.5px solid #ddd;
+      border-radius: 7px;
+      margin-bottom: 8px;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .radio-option:hover { border-color: #85A372; background: #f5faf3; }
+    .radio-option.selected { border-color: #422D8C; background: #f0edf9; }
+
+    .radio-option input[type="radio"] {
+      accent-color: #422D8C;
+      width: 17px; height: 17px; cursor: pointer;
+    }
+
+    .radio-label { font-size: 0.9rem; color: #333; }
+
+    .radio-badge {
+      margin-left: auto;
+      font-size: 0.75rem;
+      font-weight: bold;
+      padding: 2px 8px;
+      border-radius: 20px;
+    }
+
+    .badge-free { background: #85A372; color: #fff; }
+    .badge-book { background: #422D8C; color: #fff; }
+    .badge-both { background: #E21C21; color: #fff; }
+
+    .submit-btn {
+      width: 100%;
+      padding: 14px;
+      background: #422D8C;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 24px;
+      letter-spacing: 0.5px;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .submit-btn:hover { background: #331f78; transform: translateY(-1px); }
+    .submit-btn:disabled { background: #999; cursor: not-allowed; transform: none; }
+
+    .fine-print {
+      font-size: 0.75rem;
+      color: #999;
+      text-align: center;
+      margin-top: 14px;
+    }
+
+    .success-msg {
+      display: none;
+      text-align: center;
+      padding: 24px;
+      color: #422D8C;
+      font-size: 1rem;
+    }
+
+    .success-msg .checkmark { font-size: 2.5rem; margin-bottom: 10px; }
+
+    .error-msg {
+      display: none;
+      color: #E21C21;
+      font-size: 0.82rem;
+      margin-top: 6px;
+    }
+
+    .global-error {
+      display: none;
+      background: #fff0f0;
+      border: 1px solid #E21C21;
+      color: #E21C21;
+      padding: 10px 14px;
+      border-radius: 7px;
+      font-size: 0.85rem;
+      margin-top: 16px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-card">
+
+    <div id="form-body">
+      <p class="form-headline">Start My Journey</p>
+      <p class="form-sub">Join the Moorebida family — choose your path below.</p>
+
+      <form id="freequensee-form" novalidate>
+
+        <label class="field-label" for="fname">First Name</label>
+        <input type="text" id="fname" name="fname" placeholder="Your first name" required />
+        <span class="error-msg" id="err-name">Please enter your name.</span>
+
+        <label class="field-label" for="email">Email Address</label>
+        <input type="email" id="email" name="email" placeholder="your@email.com" required />
+        <span class="error-msg" id="err-email">Please enter a valid email address.</span>
+
+        <div class="radio-group">
+          <legend>What are you here for?</legend>
+
+          <label class="radio-option" id="opt-app">
+            <input type="radio" name="journey_path" value="app-signup" required />
+            <span class="radio-label">I want the free app 🚀</span>
+            <span class="radio-badge badge-free">FREE</span>
+          </label>
+
+          <label class="radio-option" id="opt-book">
+            <input type="radio" name="journey_path" value="book-buyer" />
+            <span class="radio-label">I want the book 📖</span>
+            <span class="radio-badge badge-book">$20</span>
+          </label>
+
+          <label class="radio-option" id="opt-both">
+            <input type="radio" name="journey_path" value="both" />
+            <span class="radio-label">Both! Give me everything 🔥</span>
+            <span class="radio-badge badge-both">BEST</span>
+          </label>
+        </div>
+        <span class="error-msg" id="err-radio">Please select an option.</span>
+
+        <div class="global-error" id="global-error">
+          Something went wrong. Please try again or email us at Moorebida@gmail.com
+        </div>
+
+        <button type="submit" class="submit-btn" id="submit-btn">Start My Journey →</button>
+        <p class="fine-print">No spam, ever. Unsubscribe anytime.</p>
+      </form>
+    </div>
+
+    <div class="success-msg" id="success-body">
+      <div class="checkmark">🎉</div>
+      <p><strong>You're in!</strong></p>
+      <p style="margin-top:8px; color:#555; font-size:0.9rem;">
+        Check your inbox — your journey starts now.<br/>
+        <em>Raise your vibration. Heal from within.</em>
+      </p>
+    </div>
+
+  </div>
+
+  <script>
+    // MailerLite group selection highlight
+    document.querySelectorAll('input[name="journey_path"]').forEach(function(radio) {
+      radio.addEventListener('change', function() {
+        document.querySelectorAll('.radio-option').forEach(function(o) { o.classList.remove('selected'); });
+        radio.closest('.radio-option').classList.add('selected');
+      });
+    });
+
+    document.getElementById('freequensee-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      var name  = document.getElementById('fname').value.trim();
+      var email = document.getElementById('email').value.trim();
+      var path  = document.querySelector('input[name="journey_path"]:checked');
+      var valid = true;
+
+      // Clear errors
+      document.querySelectorAll('.error-msg, .global-error').forEach(function(el) {
+        el.style.display = 'none';
+      });
+
+      if (!name) { document.getElementById('err-name').style.display = 'block'; valid = false; }
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        document.getElementById('err-email').style.display = 'block'; valid = false;
+      }
+      if (!path) { document.getElementById('err-radio').style.display = 'block'; valid = false; }
+      if (!valid) return;
+
+      var btn = document.getElementById('submit-btn');
+      btn.disabled = true;
+      btn.textContent = 'Submitting...';
+
+      // =============================================================
+      // IMPORTANT: Replace YOUR_WIX_SITE_URL with your actual Wix
+      // site URL, e.g. https://www.moorebida.com
+      // The endpoint path /_functions/subscribe is fixed.
+      // =============================================================
+      var endpoint = 'https://www.moorebida.com/_functions/subscribe';
+
+      fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: name, email: email, path: path.value })
+      })
+      .then(function(res) { return res.json(); })
+      .then(function(data) {
+        if (data.success) {
+          document.getElementById('form-body').style.display = 'none';
+          document.getElementById('success-body').style.display = 'block';
+          // Redirect after 2.5 seconds
+          setTimeout(function() {
+            if (path.value === 'book-buyer') {
+              window.top.location.href = 'https://www.moorebida.com/thebook';
+            } else {
+              window.top.location.href = 'https://moorebida-wellness-path.lovable.app';
+            }
+          }, 2500);
+        } else {
+          document.getElementById('global-error').style.display = 'block';
+          btn.disabled = false;
+          btn.textContent = 'Start My Journey →';
+        }
+      })
+      .catch(function() {
+        document.getElementById('global-error').style.display = 'block';
+        btn.disabled = false;
+        btn.textContent = 'Start My Journey →';
+      });
+    });
+  </script>
+</body>
+</html>
